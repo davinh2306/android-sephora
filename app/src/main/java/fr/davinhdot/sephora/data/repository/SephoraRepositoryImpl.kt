@@ -20,7 +20,7 @@ class SephoraRepositoryImpl @Inject constructor(
 
         return sephoraApi.getAllItems()
             .map {
-                mapNetworkToItems(it)
+                mapNetworkToItems(it.items)
             }
             .mapNetworkErrors()
     }

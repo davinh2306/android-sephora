@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 data class NetworkItem(
     var id: String = "",
 
-    var image: String?,
+    val image: String?,
 
-    var description: String?,
+    val description: String?,
 
-    var location: String?
+    val location: String?
 )
