@@ -1,13 +1,13 @@
-package fr.davinhdot.sephora.data.factory
+package fr.davinhdot.sephora.data.network.factory
 
 import android.content.Context
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import fr.davinhdot.sephora.data.constant.NetworkConstant.DEFAULT_CONNECT_TIMEOUT
-import fr.davinhdot.sephora.data.constant.NetworkConstant.DEFAULT_READ_TIMEOUT
-import fr.davinhdot.sephora.data.constant.NetworkConstant.DEFAULT_WRITE_TIMEOUT
-import fr.davinhdot.sephora.data.constant.NetworkConstant.OKHTTP_CACHE
+import fr.davinhdot.sephora.data.network.constant.NetworkConstant.DEFAULT_CONNECT_TIMEOUT
+import fr.davinhdot.sephora.data.network.constant.NetworkConstant.DEFAULT_READ_TIMEOUT
+import fr.davinhdot.sephora.data.network.constant.NetworkConstant.DEFAULT_WRITE_TIMEOUT
+import fr.davinhdot.sephora.data.network.constant.NetworkConstant.OKHTTP_CACHE
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient

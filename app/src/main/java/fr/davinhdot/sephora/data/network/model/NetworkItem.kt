@@ -1,4 +1,4 @@
-package fr.davinhdot.sephora.data.model
+package fr.davinhdot.sephora.data.network.model
 
 import com.squareup.moshi.JsonClass
 

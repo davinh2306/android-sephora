@@ -1,4 +1,4 @@
-package fr.davinhdot.sephora.data.constant
+package fr.davinhdot.sephora.data.network.constant
 
 object NetworkConstant {
 
