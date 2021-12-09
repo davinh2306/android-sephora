@@ -10,14 +10,17 @@ import fr.davinhdot.sephora.R
 import fr.davinhdot.sephora.domain.entity.Item
 import timber.log.Timber
 
-class ItemAdapter(private val items: List<Item>) :
+class ItemAdapter(
+    private val items: List<Item>,
+    private val clickListener: (Item) -> Unit
+) :
     RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         Timber.d("onCreateViewHolder")
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_list, parent, false)
-        return ItemViewHolder(view)
+        return ItemViewHolder(view, clickListener)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -27,12 +30,19 @@ class ItemAdapter(private val items: List<Item>) :
 
     override fun getItemCount() = items.size
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(
+        itemView: View,
+        private val listener: (Item) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: Item) {
             Timber.d("bind item $item")
 
             itemView.findViewById<TextView>(R.id.item_name).text = item.id
+
+            itemView.setOnClickListener {
+                listener(item)
+            }
         }
     }
 

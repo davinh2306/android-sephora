@@ -13,6 +13,7 @@ import fr.davinhdot.sephora.domain.entity.NoNetworkException
 import fr.davinhdot.sephora.domain.entity.ServerUnreachableException
 import fr.davinhdot.sephora.ui.catalog.adapter.ItemAdapter
 import fr.davinhdot.sephora.ui.catalog.viewmodel.CatalogViewModel
+import fr.davinhdot.sephora.ui.detail.view.BottomSheetDetailFragment
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -34,7 +35,13 @@ class CatalogActivity : AppCompatActivity() {
 
         viewModel.mLiveDataItems.observe(this@CatalogActivity, { items ->
             binding.catalogList.apply {
-                adapter = ItemAdapter(items)
+                adapter = ItemAdapter(items) {
+                    BottomSheetDetailFragment.newInstance(it)
+                        .show(
+                            supportFragmentManager,
+                            BottomSheetDetailFragment::class.java.simpleName
+                        )
+                }
                 layoutManager = LinearLayoutManager(this@CatalogActivity)
                 addItemDecoration(
                     ItemAdapter.MarginItemDecoration(
