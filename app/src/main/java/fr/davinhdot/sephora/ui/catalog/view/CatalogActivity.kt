@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import fr.davinhdot.sephora.R
 import fr.davinhdot.sephora.databinding.ActivityCatalogBinding
@@ -18,6 +18,10 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class CatalogActivity : AppCompatActivity() {
+
+    companion object {
+        private const val GRID_SIZE = 2
+    }
 
     private lateinit var binding: ActivityCatalogBinding
 
@@ -35,17 +39,18 @@ class CatalogActivity : AppCompatActivity() {
 
         viewModel.mLiveDataItems.observe(this@CatalogActivity, { items ->
             binding.catalogList.apply {
-                adapter = ItemAdapter(items) {
+                adapter = ItemAdapter(this@CatalogActivity, items) {
                     BottomSheetDetailFragment.newInstance(it)
                         .show(
                             supportFragmentManager,
                             BottomSheetDetailFragment::class.java.simpleName
                         )
                 }
-                layoutManager = LinearLayoutManager(this@CatalogActivity)
+                layoutManager = GridLayoutManager(this@CatalogActivity, GRID_SIZE)
                 addItemDecoration(
                     ItemAdapter.MarginItemDecoration(
-                        resources.getDimension(R.dimen.item_list_margin_decoration).toInt()
+                        resources.getDimension(R.dimen.item_list_margin_decoration).toInt(),
+                        GRID_SIZE
                     )
                 )
             }

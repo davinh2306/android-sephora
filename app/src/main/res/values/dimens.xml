@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_list_margin_decoration">8dp</dimen>
+
+
+    <dimen name="list_padding_vertical">16dp</dimen>
+    <dimen name="list_padding_horizontal">24dp</dimen>
+    <dimen name="list_image_height">240dp</dimen>
+
+    <dimen name="detail_image_height">240dp</dimen>
 </resources>

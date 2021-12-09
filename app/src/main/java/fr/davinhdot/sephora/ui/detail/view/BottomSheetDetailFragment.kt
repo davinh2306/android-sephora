@@ -17,8 +17,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import fr.davinhdot.sephora.R
+import fr.davinhdot.sephora.databinding.BottomSheetDetailBinding
 import fr.davinhdot.sephora.domain.entity.Item
+import fr.davinhdot.sephora.utils.ImageHelper
 import timber.log.Timber
+
 
 class BottomSheetDetailFragment : BottomSheetDialogFragment() {
 
@@ -36,13 +39,17 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
             }
     }
 
-    var mDisableDrag = false
+    var disableDrag = false
 
-    private lateinit var mParentActivity: AppCompatActivity
+    private var item: Item? = null
 
-    private lateinit var mBottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+    private lateinit var binding: BottomSheetDetailBinding
 
-    private lateinit var mBottomSheetCallback: BottomSheetCallback
+    private lateinit var parentActivity: AppCompatActivity
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+
+    private lateinit var bottomSheetCallback: BottomSheetCallback
 
 
     override fun onAttach(context: Context) {
@@ -52,7 +59,7 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
 
         if (context is AppCompatActivity) {
             @Suppress("UNCHECKED_CAST")
-            this.mParentActivity = context
+            this.parentActivity = context
         }
     }
 
@@ -66,27 +73,35 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
                 this@BottomSheetDetailFragment.dismiss()
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-        // TODO setStyle(STYLE_NORMAL, R.style.DataHero_BottomSheetTheme)
+        setStyle(STYLE_NORMAL, R.style.Sephora_BottomSheetTheme)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Timber.d("onCreateView")
 
-        // get the views and attach the listener
-        return inflater.inflate(R.layout.bottom_sheet_detail, container, false)
+        binding = BottomSheetDetailBinding.inflate(
+            inflater,
+            container,
+            false
+        )
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        parseArgs()
+
         initBottomSheet()
+
+        initView()
     }
 
     override fun onDestroyView() {
@@ -94,8 +109,8 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
 
         super.onDestroyView()
 
-        if (::mBottomSheetBehavior.isInitialized) {
-            mBottomSheetBehavior.removeBottomSheetCallback(mBottomSheetCallback)
+        if (::bottomSheetBehavior.isInitialized) {
+            bottomSheetBehavior.removeBottomSheetCallback(bottomSheetCallback)
         }
     }
 
@@ -109,6 +124,14 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
             ft.commitAllowingStateLoss()
         } catch (illegalStateException: IllegalStateException) {
             Timber.e("show - exception $illegalStateException")
+        }
+    }
+
+    private fun parseArgs() {
+        Timber.d("parseArgs")
+
+        arguments?.run {
+            item = getParcelable(ARGS_ITEM)
         }
     }
 
@@ -131,14 +154,14 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
 
                 bottomSheet.layoutParams = params
 
-                mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-                mBottomSheetBehavior.peekHeight = params.height
-                mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+                bottomSheetBehavior.peekHeight = params.height
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-                mBottomSheetCallback = object : BottomSheetCallback() {
+                bottomSheetCallback = object : BottomSheetCallback() {
                     override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {
-                        if (mDisableDrag && newState == BottomSheetBehavior.STATE_DRAGGING) {
-                            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        if (disableDrag && newState == BottomSheetBehavior.STATE_DRAGGING) {
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                         } else if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                             dismissAllowingStateLoss()
                         }
@@ -148,8 +171,19 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
                         // nothing
                     }
                 }
-                mBottomSheetBehavior.addBottomSheetCallback(mBottomSheetCallback)
+                bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
             }
+        }
+    }
+
+    private fun initView() {
+
+        context?.let {
+            ImageHelper.displayImageFromUrl(
+                context = it,
+                image = item?.image,
+                imageView = binding.detailImage
+            )
         }
     }
 }

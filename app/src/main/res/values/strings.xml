@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Sephora</string>
+
     <string name="error_network">Network Error</string>
     <string name="error_unknown">Unknown Error</string>
+
+    <string name="list_image_content_description">list_image_content_description</string>
+    <string name="detail_image_content_description">detail_image_content_description</string>
 </resources>

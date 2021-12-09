@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingVertical="@dimen/list_padding_vertical"
+    android:paddingHorizontal="@dimen/list_padding_horizontal"
+    android:background="@drawable/background_gradient"
     tools:context=".ui.catalog.view.CatalogActivity">
 
     <androidx.recyclerview.widget.RecyclerView

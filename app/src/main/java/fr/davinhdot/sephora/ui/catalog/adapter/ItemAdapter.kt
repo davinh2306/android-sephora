@@ -1,16 +1,18 @@
 package fr.davinhdot.sephora.ui.catalog.adapter
 
+import android.app.Activity
 import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import fr.davinhdot.sephora.R
 import fr.davinhdot.sephora.domain.entity.Item
+import fr.davinhdot.sephora.utils.ImageHelper
 import timber.log.Timber
 
 class ItemAdapter(
+    private val activity: Activity,
     private val items: List<Item>,
     private val clickListener: (Item) -> Unit
 ) :
@@ -25,7 +27,7 @@ class ItemAdapter(
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         Timber.d("onCreateViewHolder")
-        holder.bind(items[position])
+        holder.bind(activity, items[position])
     }
 
     override fun getItemCount() = items.size
@@ -35,10 +37,14 @@ class ItemAdapter(
         private val listener: (Item) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Item) {
+        fun bind(activity: Activity, item: Item) {
             Timber.d("bind item $item")
 
-            itemView.findViewById<TextView>(R.id.item_name).text = item.id
+            ImageHelper.displayImageFromUrl(
+                context = activity,
+                image = item.image,
+                imageView = itemView.findViewById(R.id.item_image)
+            )
 
             itemView.setOnClickListener {
                 listener(item)
@@ -46,7 +52,8 @@ class ItemAdapter(
         }
     }
 
-    class MarginItemDecoration(private val listSpace: Int) : RecyclerView.ItemDecoration() {
+    class MarginItemDecoration(private val space: Int, private val size: Int) :
+        RecyclerView.ItemDecoration() {
 
         override fun getItemOffsets(
             outRect: Rect,
@@ -56,7 +63,15 @@ class ItemAdapter(
         ) {
             Timber.d("getItemOffsets")
 
-            outRect.bottom = listSpace
+            val itemPosition = (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
+
+            if (itemPosition % size == 0) {
+                outRect.right = space
+            } else {
+                outRect.left = space
+            }
+            outRect.top = space
+            outRect.bottom = space
         }
     }
 }
