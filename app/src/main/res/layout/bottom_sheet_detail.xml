@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@color/black">
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/bottom_sheet_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.8"
@@ -20,14 +21,58 @@
         android:id="@+id/detail_image"
         android:layout_width="0dp"
         android:layout_height="@dimen/detail_image_height"
+        android:background="@drawable/background_image_detail"
         android:contentDescription="@string/detail_image_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.4"
-        tools:background="@color/big_stone" />
+        app:layout_constraintWidth_percent="0.4" />
+
+    <TextView
+        android:id="@+id/detail_location"
+        style="@style/DetailLocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_location_margin_top"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingHorizontal="@dimen/detail_padding_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/detail_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_image"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/detail_description"
+        style="@style/DetailDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_description_margin_top"
+        android:ellipsize="end"
+        android:maxLines="8"
+        android:paddingHorizontal="@dimen/detail_padding_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/detail_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_location" />
+
+    <TextView
+        android:id="@+id/detail_id"
+        style="@style/DetailId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detail_id_margin_top"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/detail_padding_horizontal"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

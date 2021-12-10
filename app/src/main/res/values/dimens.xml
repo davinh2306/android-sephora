@@ -8,4 +8,8 @@
     <dimen name="list_image_height">240dp</dimen>
 
     <dimen name="detail_image_height">240dp</dimen>
+    <dimen name="detail_padding_horizontal">24dp</dimen>
+    <dimen name="detail_location_margin_top">32dp</dimen>
+    <dimen name="detail_description_margin_top">16dp</dimen>
+    <dimen name="detail_id_margin_top">32dp</dimen>
 </resources>

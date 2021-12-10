@@ -6,4 +6,7 @@
 
     <string name="list_image_content_description">list_image_content_description</string>
     <string name="detail_image_content_description">detail_image_content_description</string>
+
+    <string name="detail_empty_description">No description.</string>
+    <string name="detail_empty_location">Unknown location</string>
 </resources>

@@ -27,7 +27,7 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
 
     companion object {
 
-        private const val DEFAULT_PERCENTAGE_BOTTOM_SHEET = 0.75
+        private const val DEFAULT_PERCENTAGE_BOTTOM_SHEET = 0.8
 
         private const val ARGS_ITEM = "args_item"
 
@@ -184,6 +184,20 @@ class BottomSheetDetailFragment : BottomSheetDialogFragment() {
                 image = item?.image,
                 imageView = binding.detailImage
             )
+        }
+
+        item?.let {
+            binding.detailDescription.text = if (it.description.isEmpty()) {
+                resources.getString(R.string.detail_empty_description)
+            } else {
+                it.description
+            }
+            binding.detailLocation.text = if (it.location.isEmpty()) {
+                resources.getString(R.string.detail_empty_location)
+            } else {
+                it.location
+            }
+            binding.detailId.text = it.id
         }
     }
 }

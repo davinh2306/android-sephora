@@ -5,6 +5,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="ebony">#0E1822</color>
     <color name="big_stone">#141E30</color>
     <color name="cloud_burst">#243B55</color>
 </resources>
